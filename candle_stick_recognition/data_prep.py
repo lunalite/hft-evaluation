@@ -1,11 +1,11 @@
-import pandas
-import requests
-import pandas as pd
+from enum import Enum, auto
 
-# link for Bitcoin Data
-from candle_stick_recognition.EvaluatorMachine import EvaluatorMachine
-from candle_stick_recognition.identify_candlestick import recognize_candlestick
-from candle_stick_recognition.take_best_strategy import take_best_strategy
+import pandas as pd
+import requests
+import talib
+from pandas import DataFrame, Timestamp
+
+from candle_stick_recognition.TrendService import TrendService
 
 link = "https://min-api.cryptocompare.com/data/v2/histoday?fsym=BNB&tsym=USD&limit=100&aggregate=1"
 
@@ -34,4 +34,10 @@ df.insert(0, "Date", posix_time)
 # # drop unix time stamp
 df.drop("time", axis=1, inplace=True)
 
-EvaluatorMachine(df, take_best_strategy).evaluate()
+# evaluate using evaluator machine
+# EvaluatorMachine(df, take_best_strategy).evaluate()
+
+# get trend using trend service
+# trendService = TrendService(data=df)
+# x = trendService.get_trend_at_date('2021-05-05')
+# print(x)
